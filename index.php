@@ -1,30 +1,21 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-//
 
+use Pecee\SimpleRouter\SimpleRouter;
 
-//
-//// match for the routes
-$match = $router->match();
+require __DIR__.'/vendor/autoload.php';
 
-//$newbob =  $match['target'];
-//// create $controller and method variables from match target
-list($controller, $method) = explode("@", $match['target']);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+/* Load external routes file */
+require_once 'routes.php';
 
-// pass those to call_user_func_array
+/**
+ * The default namespace for route-callbacks, so we don't have to specify it each time.
+ * Can be overwritten by using the namespace config option on your routes.
+ */
 
-if (is_callable(array($controller, $method))) {
-	$object = new $controller();
-	// call method on that object passing params
-	call_user_func_array(array($object, $method), array($match['params']));
-} else {
-	echo "Cannot find $controller -> $method";
-	exit();
-}
+SimpleRouter::setDefaultNamespace('\Davidany\CodeGen');
 
-
-
-/*
-	*/
+// Start the routing
+SimpleRouter::start();
