@@ -87,7 +87,7 @@ RUN set -eux; \
 	mkdir -p /var/lib/mysql /var/run/mysqld; \
 	chown mysql:mysql /var/lib/mysql /var/run/mysqld; \
 # ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
-	chmod 1777 /var/lib/mysql /var/run/mysqld; \
+	chmod 777 /var/lib/mysql /var/run/mysqld; \
 	\
 	mkdir /docker-entrypoint-initdb.d; \
 	\
@@ -115,9 +115,11 @@ RUN set -eux; \
 
 VOLUME /var/lib/mysql
 
-COPY dodocker-entrypoint.sh /usr/local/bin/
-RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
-ENTRYPOINT ["docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod 777 /usr/local/bin/entrypoint.sh;
+RUN  	chmod +x /usr/local/bin/entrypoint.sh;
+RUN ln -s usr/local/bin/entrypoint.sh /entrypoint.sh # backwards compat
+ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 3306 33060
 CMD ["mysqld"]

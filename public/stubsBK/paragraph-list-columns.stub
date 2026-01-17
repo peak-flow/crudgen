@@ -1,0 +1,3 @@
+<p>
+	<strong>{{ColumnDisplayName}}:</strong> {{ ${{ViewClassVariableSingular}}->{{ColumnName}} }}<br>
+</p>

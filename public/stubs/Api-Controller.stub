@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\{{ModelClassName}}Resource;
+use App\Models\{{ModelClassName}};
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class {{ControllerName}} extends Controller
+{
+    public function index()
+    {
+        ${{ControllerVariableName}} = {{ModelClassName}}::all();
+
+        return {{ModelClassName}}Resource::collection(${{ControllerVariableName}});
+    }
+
+    public function store(Request $request)
+    {
+        ${{ControllerVariableNameSingular}} = {{ModelClassName}}::create($request->all());
+
+        return (new {{ModelClassName}}Resource(${{ControllerVariableNameSingular}}))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
+    }
+
+    public function show($id)
+    {
+        ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+
+        return new {{ModelClassName}}Resource(${{ControllerVariableNameSingular}});
+    }
+
+    public function update(Request $request, $id)
+    {
+        ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+        ${{ControllerVariableNameSingular}}->update($request->all());
+
+        return new {{ModelClassName}}Resource(${{ControllerVariableNameSingular}});
+    }
+
+    public function destroy($id)
+    {
+        ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+        ${{ControllerVariableNameSingular}}->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
+}

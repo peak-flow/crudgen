@@ -1,0 +1,28 @@
+@extends('layouts.app')
+
+@section('content')
+        <form method="post"  class="form-horizontal" action="/{{ViewFolderName}}/store">
+@csrf
+
+    <div class="container">
+
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+            	<a class="navbar-brand" href="{{ViewFolderName}}/index">{{ViewDisplayTableName}} Page</a>
+			</div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/{{ViewFolderName}}/index">View All {{ViewDisplayTableName}}</a>
+                </li>
+                <li>
+                    <a href="/{{ViewFolderName}}/create">Create {{ViewDisplayTableName}}</a>
+            </ul>
+        </nav>
+
+        <h1>Showing {{ ${{ViewClassVariableSingular}}["id"] }}</h1>
+
+	<div class="jumbotron text-center">
+		{{ParagraphListColumns}}
+	</div>
+    </div>
+@stop

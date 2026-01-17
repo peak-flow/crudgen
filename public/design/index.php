@@ -1,6 +1,6 @@
 <?php
 
-use Davidany\CodeGen\Project;
+use Davidany\Codegen\Project;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

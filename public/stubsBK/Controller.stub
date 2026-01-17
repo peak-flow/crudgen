@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\{{ModelClassName}};
+
+class {{ControllerName}} extends Controller
+{
+
+    public function index()
+    {
+
+    	// get all the {{ModelClassName}}
+        ${{ControllerVariableName}} = {{ModelClassName}}::all();
+        // load the view and pass the {{ControllerCompactName}}
+    	 return view('{{ViewFolderName}}.index', compact('{{ControllerCompactName}}'));
+
+    }
+
+    public function create()
+    {
+        // load the create form (app/views/{{ViewFolderName}}/create.blade.php)
+        return view('{{ViewFolderName}}.create');
+    }
+
+    public function store(Request $request)
+    {
+        {{ModelClassName}}::create($request->all());
+	    return redirect()->route('{{ViewFolderName}}.index');
+    }
+
+
+    public function show($id)
+    {
+         ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+    	 return view('{{ViewFolderName}}.show', compact('{{ControllerVariableNameSingular}}'));
+
+    }
+    public function edit($id)
+    {
+         ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+    	 return view('{{ViewFolderName}}.edit', compact('{{ControllerVariableNameSingular}}'));
+
+    }
+
+    public function update(Request $request, $id)
+    {
+        ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+        ${{ControllerVariableNameSingular}}->fill($request->all());
+        ${{ControllerVariableNameSingular}}->save();
+        return redirect()->route('{{ViewFolderName}}.index');
+
+    }
+
+    public function destroy($id)
+    {
+            ${{ControllerVariableNameSingular}} = {{ModelClassName}}::findOrFail($id);
+
+        ${{ControllerVariableNameSingular}}->delete();
+        return redirect()->route('{{ViewFolderName}}.index');
+    }
+}

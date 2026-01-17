@@ -1,6 +1,6 @@
 <?php
 
-namespace Davidany\CodeGen;
+namespace Davidany\Codegen;
 
 use DB;
 use PDO;

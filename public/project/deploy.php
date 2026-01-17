@@ -1,22 +1,17 @@
 <?php
-
-use Davidany\CodeGen\CrudGenerator;
-use Davidany\CodeGen\CrudTemplateVariable;
-use Davidany\CodeGen\DbCredential;
-use Davidany\CodeGen\Project;
+use Davidany\Codegen\CrudGenerator;
+use Davidany\Codegen\CrudTemplateVariable;
+use Davidany\Codegen\DbCredential;
+use Davidany\Codegen\Project;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 //
 
-
 include($_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php');
-
 $projectId   = $_GET['id'];
 $project     = new Project();
 $projectRows = $project->edit($projectId);
-
-
 $dbCredential    = new DbCredential();
 $dbCredentialRow = $dbCredential->getByProjectId($projectId);
 
@@ -112,23 +107,24 @@ $dbCredentialRow = $dbCredential->getByProjectId($projectId);
 
 		<div class = "row">
 
-
 			<?php
+
 			if (isset($dbCredentialRow->host)) {
 				$crudTemplateVariable = new CrudTemplateVariable();
 				$crudTemplateVariable->build($dbCredentialRow, $projectId);
 
-
-//				print_x($crudTemplateVariable);
-//				die();
-				$generate = new CrudGenerator($crudTemplateVariable->crudValueArray);
+			//	print_x($crudTemplateVariable);
+				$generate = new CrudGenerator($crudTemplateVariable->laravelBuilderValueArray);
 				$generate->getDestinationPath($projectRows->name);
 				$generate->getTables();
-				$generate->buildModel($crudTemplateVariable->singleModelNameArray);
+				$generate->buildModel();
 				$generate->buildController();
+				$generate->buildApiController();
 				$generate->buildIndexView();
 				$generate->buildCreateView();
+
 				$generate->buildShowView();
+
 				$generate->buildEditView();
 				$generate->buildRoute();
 				$generate->buildMigration();

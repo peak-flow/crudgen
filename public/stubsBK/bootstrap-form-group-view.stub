@@ -1,0 +1,5 @@
+<div class="form-group">
+	<label class="" for="{{ColumnName}}">{{ColumnDisplayName}}</label>
+	<input type="text" class="form-control" name="{{ColumnName}}"  value="" id="{{ColumnName}}">
+</div>
+

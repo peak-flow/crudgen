@@ -5,7 +5,8 @@
     "vlucas/phpdotenv": "^5.4",
     "nesbot/carbon": "^2.0",
     "sebastiaanluca/php-stub-generator": "^0.1.1",
-    "pecee/simple-router": "4.3.7.2"
+    "pecee/simple-router": "4.3.7.2",
+    "doctrine/inflector": "^1.4"
   },
   "authors": [
     {
@@ -21,5 +22,8 @@
     "classmap": [
       "classes"
     ]
+  },
+  "require-dev": {
+    "symfony/var-dumper": "*"
   }
 }

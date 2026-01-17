@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Davidany\CodeGen;
+namespace Davidany\Codegen;
 
 use PDO;
 

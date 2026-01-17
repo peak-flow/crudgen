@@ -1,19 +1,19 @@
 version: '3.9'
 services:
-  php:
+  crud-php:
     container_name: '${CONTAINER_NAME_PHP:-crud-php}'
     networks:
       dominion_net:
         ipv4_address: ${DOCKER_IP_ADDRESS_CRUD}
     hostname: crud
-    domainname: crud.test
+    domainname: crud.dd.test
     build:
       context: ./
       dockerfile: docker/${DOCKER_FILE}
     ports:
       - "${PHP_PORT:-80}:80"
     links:
-      - mysql
+      - crud-mysql
     volumes:
       - ./:/var/www/html
       - ./errors/httpd/:/var/log/httpd
@@ -24,16 +24,16 @@ services:
       - ./errors/xdebug_trace/:/var/log/xdebug_trace
       - ./errors/testtmp/:/testtmp2
 #      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom-php.ini
-  mysql:
+  crud-mysql:
     container_name: '${CONTAINER_NAME_MYSQL:-crud-mysql}'
     build:
-      context: ./docker/mysql/5.7
+      context: ./docker/mysql/8.0
       dockerfile: Dockerfile
     volumes:
       - './docker/mysql/init:/etc/mysql/conf.d'
       - ./docker/mysql/init:/docker-entrypoint-initdb.d
       - ./docker/mysql/db:/var/lib/mysql
-      - ./docker/mysql/backup:/home/dominion/backup
+#      - ./docker/mysql/backup:/home/dominion/backup
     networks:
      - dominion_net
     restart: always
@@ -42,15 +42,15 @@ services:
       MYSQL_DATABASE2: 'random'
       MYSQL_DATABASE3: 'emr'
       MYSQL_DATABASE4: 'alert'
-      MYSQL_USER: 'crud'
-      MYSQL_PASSWORD: 'crud'
-      MYSQL_ROOT_PASSWORD: 'crud'
+      MYSQL_USER: "${MYSQL_DOCKER_DB:-crud}"
+      MYSQL_PASSWORD: "${MYSQL_DOCKER_PASSWORD:-crud}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_DOCKER_ROOT_PASSWORD:-crud}"
     ports:
       - "${MYSQL_PORT:-33063}:3306"
     expose:
       - '3306'
-  mssql:
-    container_name: '${CONTAINER_NAME_MSSQL:-dconnect-mssql}'
+  crud-mssql:
+    container_name: '${CONTAINER_NAME_MSSQL:-crud-mssql}'
     build:
       context: ./docker/mssql
       dockerfile: Dockerfile
@@ -63,28 +63,7 @@ services:
       - './docker/mssql/secrets:/var/opt/mssql/secrets'
     ports:
       - '${DB_PORT_MSSQL:-1433}:1433'
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: '${CONTAINER_NAME_PHPMYADMIN:-crud-phpmyadmin}'
-    networks:
-      dominion_net:
-        ipv4_address: ${DOCKER_IP_ADDRESS_PHPMYADMIN}
-    env_file:
-      - docker/phpmyadmin/phpmyadmin.env
-    links:
-      - mysql:mysql
-    ports:
-      - "${PHPMYADMIN_PORT_CRUD:-90}:80"
-    volumes:
-      - /sessions
-      - ./docker/phpmyadmin/php.ini-development:/usr/local/etc/php/php.ini-development
-      - ./docker/phpmyadmin/php.ini-production:/usr/local/etc/php/php.ini-production
-    environment:
-      MYSQL_USER: connect
-      MYSQL_PASSWORD: connect
-      MYSQL_ROOT_PASSWORD: connect
-      PMA_HOST: mysql
-  proxy:
+  crud-proxy:
     container_name: '${CONTAINER_NAME_PROXY:-crud-proxy}'
     image: nginx
     build:
@@ -92,10 +71,10 @@ services:
     networks:
       - dominion_net
     links:
-      - php
+      - crud-php
     ports:
-      - 80:80
-      - 443:443
+      - 82:80
+      - 444:443
       # - 8080:8080
     volumes:
       - ./docker/config/proxy/nginx.conf:/etc/nginx/nginx.conf

@@ -3,26 +3,24 @@
 @section('content')
         <form method="post"  class="form-horizontal" action="/{{ViewFolderName}}/store">
 @csrf
+<div class="container">
 
-    <div class="container">
+    <nav class="flex justify-between items-center mb-8">
+        <div>
+            <a class="text-2xl font-bold text-gray-800 hover:text-gray-700" href="{{ViewFolderName}}/index">{{ViewDisplayTableName}} Page</a>
+        </div>
+        <div>
+            <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="/{{ViewFolderName}}/index">View All {{ViewDisplayTableName}}</a>
+            <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2" href="/{{ViewFolderName}}/create">Create {{ViewDisplayTableName}}</a>
+        </div>
+    </nav>
 
-        <nav class="navbar navbar-inverse">
-            <div class="navbar-header">
-            	<a class="navbar-brand" href="{{ViewFolderName}}/index">{{ViewDisplayTableName}} Page</a>
-			</div>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/{{ViewFolderName}}/index">View All {{ViewDisplayTableName}}</a>
-                </li>
-                <li>
-                    <a href="/{{ViewFolderName}}/create">Create {{ViewDisplayTableName}}</a>
-            </ul>
-        </nav>
+    <h1 class="text-3xl font-bold mb-4">Showing {{ ${{ViewClassVariableSingular}}['id'] }}</h1>
 
-        <h1>Showing {{ ${{ViewClassVariableSingular}}["id"] }}</h1>
-
-	<div class="jumbotron text-center">
-		{{ParagraphListColumns}}
-	</div>
+    <div class="bg-gray-100 p-8 rounded-lg shadow-lg">
+        {{ParagraphListColumns}}
     </div>
+
+</div>
+
 @stop

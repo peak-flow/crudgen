@@ -29,7 +29,7 @@ THE SOFTWARE.
  * file that was distributed with this source code.
  */
 
-namespace Davidany\CodeGen;
+namespace Davidany\Codegen;
 
 /**
  * Converts words between singular and plural forms.

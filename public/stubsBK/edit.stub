@@ -1,0 +1,19 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+		<h1>Edit {{ViewDisplayTableName}} </h1>
+
+        <form method="post"  class="form-horizontal" action="/{{ViewFolderName}}/update/{{${{ViewClassVariableSingular}}->id}}">
+		@csrf
+		{{FormBlockBuilder}}
+
+	   <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-primary">Save {{ViewDisplayTableName}}	</button>
+			</div>
+		</div>
+		</form>
+	</div>
+@stop

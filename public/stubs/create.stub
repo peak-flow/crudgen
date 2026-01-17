@@ -2,17 +2,18 @@
 
 @section('content')
 
-    <div class="container">
-		<h1>Add {{ViewDisplayTableName}} </h1>
-        <form method="post"  class="form-horizontal" action="/{{ViewFolderName}}/store">
-		@csrf
+<div class="container">
+	<h1 class="text-2xl font-bold mb-4">Add {{ViewDisplayTableName}}</h1>
+    <form method="post" class="grid grid-cols-6 gap-6" action="/{{ViewFolderName}}/store">
+        @csrf
 		{{FormBlockBuilder}}
 
-	   <div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-primary">Save {{ViewDisplayTableName}}	</button>
-			</div>
-		</div>
-		</form>
-	</div>
+        <div class="col-span-6 sm:col-span-2">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Save {{ViewDisplayTableName}}
+            </button>
+        </div>
+    </form>
+</div>
+
 @stop

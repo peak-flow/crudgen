@@ -19,8 +19,9 @@
 #    RewriteCond %{REQUEST_FILENAME} !-f
 #    RewriteRule ^ index.php [L]
 #</IfModule>
+
 RewriteEngine on
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-l
+#RewriteCond %{SCRIPT_FILENAME} !-l
 RewriteRule ^(.*)$ index.php/$1

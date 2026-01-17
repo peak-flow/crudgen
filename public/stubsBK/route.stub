@@ -1,0 +1,8 @@
+
+Route::get('{{ViewFolderName}}/index', [App\Http\Controllers\{{ControllerName}}::class, 'index'])->name('{{ViewFolderName}}.index');
+Route::get('{{ViewFolderName}}/create', [App\Http\Controllers\{{ControllerName}}::class, 'create'])->name('{{ViewFolderName}}.create');
+Route::post('{{ViewFolderName}}/store', [App\Http\Controllers\{{ControllerName}}::class, 'store'])->name('{{ViewFolderName}}.store');
+Route::get('{{ViewFolderName}}/show/{id}', [App\Http\Controllers\{{ControllerName}}::class, 'show'])->name('{{ViewFolderName}}.show');
+Route::get('{{ViewFolderName}}/edit/{id}', [App\Http\Controllers\{{ControllerName}}::class, 'edit'])->name('{{ViewFolderName}}.edit');
+Route::post('{{ViewFolderName}}/update/{id}', [App\Http\Controllers\{{ControllerName}}::class, 'update'])->name('{{ViewFolderName}}.update');
+Route::delete('{{ViewFolderName}}/destroy/{id}', [App\Http\Controllers\{{ControllerName}}::class, 'destroy'])->name('{{ViewFolderName}}.destroy');
